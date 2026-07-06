@@ -5,7 +5,7 @@ unit hxDataModule;
 interface
 
 uses
-  Classes, SysUtils, Controls,
+  Classes, SysUtils, Graphics, Controls,
   exImgList,
   hxGlobal, hxUtils;
 
@@ -19,12 +19,15 @@ type
   private
     FImages_SimpleSmall_DarkMode: TImageList;
     FDisabledImages_SimpleSmall_DarkMode: TImageList;
+    FImageColor: TColor;
     function GetDisabledImages: TImageList;
     function GetDisabledImages_SimpleSmall_DarkMode: TImageList;
     function GetImages: TImageList;
     function GetImages_SimpleSmall_DarkMode: TImageList;
+    procedure SetImageColor(AValue: TColor);
 
   public
+    property ImageColor: TColor read FImageColor write SetImageColor default clBlack;
     property Images: TImageList read GetImages;
     property Images_SimpleSmall_DarkMode: TImageList read GetImages_SimpleSmall_DarkMode;
     property DisabledImages: TImageList read GetDisabledImages;
@@ -76,6 +79,14 @@ begin
   if FImages_SimpleSmall_DarkMode = nil then
     FImages_SimpleSmall_DarkMode := CreateRecoloredImageList(Images_SimpleSmall, $CFCFCF, [$FFFFFF], [14], self);
   Result := FImages_SimpleSmall_DarkMode;
+end;
+
+procedure TCommonData.SetImageColor(AValue: TColor);
+begin
+  if FImageColor = AValue then
+    exit;
+  FImageColor := AValue;
+  SetImageListColor(Images_SimpleSmall, FImageColor, [$FFFFFF], [14]);
 end;
 
 end.

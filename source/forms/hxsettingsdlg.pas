@@ -60,6 +60,7 @@ type
     cmbRecordViewerPosition: TComboBox;
     cmbFontSize: TComboBox;
     cmbFontName: TComboBox;
+    clbIconColor: TColorButton;
     edMaskChar: TEdit;
     gbDataViewer: TGroupBox;
     gbRecordViewer: TGroupBox;
@@ -102,6 +103,7 @@ type
     procedure cbObjectViewerVisibleChange(Sender: TObject);
     procedure cbRecordViewerVisibleChange(Sender: TObject);
     procedure cbViewOnlyChange(Sender: TObject);
+    procedure clbIconColorColorChanged(Sender: TObject);
     procedure ColorChanged(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure FormatChanged(Sender: TObject);
@@ -203,6 +205,12 @@ begin
   cbAllowInsertMode.Enabled := not cbViewOnly.Checked;
 end;
 
+procedure TSettingsForm.clbIconColorColorChanged(Sender: TObject);
+begin
+  CommonData.ImageColor := clbIconColor.ButtonColor;
+  pbSimpleSmall.Invalidate;
+end;
+
 procedure TSettingsForm.ColorChanged(Sender: TObject);
 var
   colors: TColorParams;
@@ -269,8 +277,6 @@ begin
   ppi := Font.PixelsPerInch;
   w := AImages.WidthForPPI[AImages.Width, ppi];
 
-  APaintbox.Canvas.Brush.Color := clWindow;
-  APaintbox.Canvas.FillRect(0, 0, APaintbox.Width, APaintbox.Height);
   x := MARGIN;
   for i:=0 to AImages.Count-1 do
     if x + w + MARGIN <= APaintbox.Width then
