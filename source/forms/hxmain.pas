@@ -1202,6 +1202,7 @@ begin
   MainMenu.Images := CommonData.Images;
   Toolbar.Images := CommonData.Images;
   Toolbar.DisabledImages := CommonData.DisabledImages;
+  Toolbar.Invalidate;
 
   for i := 0 to PageControl.PageCount-1 do begin
     F := GetHexEditorFrame(i);
